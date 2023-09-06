@@ -3,7 +3,7 @@ import os
 import boto3
 import paramiko
 
-sftp_hostname = "s-0337e54afd80422bb.server.transfer.us-east-1.amazonaws.com"
+sftp_hostname = "s-6d0d98bf149c4f6bb.server.transfer.us-east-1.amazonaws.com"
 sftp_username = "tf_sftp"
 sftp_private_key = paramiko.RSAKey.from_private_key_file("./pkey", password=None)
 
@@ -24,7 +24,7 @@ print("SFTP connection succesfully stablished")
 with sftp.open(bucket_key, 'wb', 32768) as f:
     print("Starting " + bucket_key + " file transfer")
     s3.download_fileobj(bucket_name, bucket_key, f)
-    print("File transferred")
+    print("File " + bucket_key + " transferred")
 
 sftp.close()
 print("SFTP connection succesfully closed")

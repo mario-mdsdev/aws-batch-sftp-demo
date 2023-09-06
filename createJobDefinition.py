@@ -10,22 +10,25 @@ response = client.register_job_definition(
     type='container',
     containerProperties={
         'image': 'mdsdevhub/aws-batch-sftp-demo:latest',
-        'memory': 0.5,
-        'vcpus': 0.25,
         'jobRoleArn': role['Role']['Arn'],
         'executionRoleArn': role['Role']['Arn'],
         "logConfiguration": {
             "logDriver": "awslogs"
         },
+        "resourceRequirements": [{
+            "value": "0.25",
+            "type": "VCPU"
+        },{
+            "value": "512",
+            "type": "MEMORY"
+        }],
         "networkConfiguration": {
             "assignPublicIp": "ENABLED"
         },
-        'environment': [
-            {
-                'name': 'AWS_DEFAULT_REGION',
-                'value': 'us-east-1'
-            }
-        ],
+        'environment': [{
+            'name': 'AWS_DEFAULT_REGION',
+            'value': 'us-east-1'
+        }],
         "fargatePlatformConfiguration": {
             "platformVersion": "LATEST"
         },
@@ -33,7 +36,10 @@ response = client.register_job_definition(
             "operatingSystemFamily": "LINUX",
             "cpuArchitecture": "X86_64"
         }
-    }
+    },
+    platformCapabilities=[
+        "FARGATE"
+    ]
 )
 
 print(response)

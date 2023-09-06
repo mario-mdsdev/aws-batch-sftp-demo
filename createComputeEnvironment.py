@@ -8,8 +8,6 @@ response = client.create_compute_environment(
     state='ENABLED',
     computeResources={
         'type': 'FARGATE_SPOT',
-        'allocationStrategy': 'BEST_FIT',
-        'minvCpus': 0,
         'maxvCpus': 4,
         "subnets": [
             "subnet-0e8967cea32c6e3b0",
@@ -21,9 +19,6 @@ response = client.create_compute_environment(
         ],
         "securityGroupIds": [
             "sg-06b0ff0639bd599f3"
-        ],
-        'instanceTypes': [
-            'optimal'
         ]
     }
 )
